@@ -18,5 +18,5 @@ This dataset conatins 12 species, I am choosing 5 species and 3 genes from each.
 - Chose 3 genes to analyze
 - Organized each gene into its own file  
 
-## Notes
+## Clustal W
 
