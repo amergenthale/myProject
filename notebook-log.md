@@ -1,30 +1,22 @@
 # Reproducible Notebook
 
 ## Dataset Description
-I am using a publicly available dataset from Dryad:
-https://datadryad.org/dataset/doi:10.5061/dryad.v27k6d0
+I am using a publicly available dataset: https://peerj.com/articles/17206/
 
-This dataset contains phylogenomic data generated for sloth evolutionary analyses. 
-The data consist of processed sequence data (Ultraconserved Elements, UCEs) that were previously assembled and used for phylogenetic reconstruction.
+This dataset contains analysis of twelve genomes of the bacterium Kerstersia gyiorum from brown-throated sloths (Bradypus variegatus), the first from a non-human host
 
 The dataset was selected because it is relevant to evolutionary biology and allows downstream phylogenetic analyses without requiring raw sequencing data.
 
 ## Data Source
-This dataset does not include raw sequencing reads.
-
-Instead, it contains processed UCE data that have already undergone quality control, assembly, and locus extraction by the original authors.
-
-Because raw reads are not available, quality control steps such as FastQC were not performed.
+This dataset conatins 12 species, I am choosing 5 species and 3 genes from each. I will organize the data into Gene rpsJ, rplC, rplD. 
 
 - Repository: myProject
 - Organism(s): Sloths 
 
 ## Steps Taken
-- Downloaded dataset from Dryad (DOI: 10.5061/dryad.v27k6d0)
-- Reviewed dataset contents and metadata
-- Identified dataset stage as processed UCE loci
-- No raw-read quality control performed due to lack of raw reads
-- Notebook updated and pushed to GitHub
+- Downloaded 5 gene data sets 
+- Chose 3 genes to analyze
+- Organized each gene into its own file  
 
 ## Notes
 
