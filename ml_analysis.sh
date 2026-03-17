@@ -19,6 +19,3 @@
 # - Computationally intensive
 # - Can get stuck in local optima
 # - Results depend on model selection
-
-# COMMAND (not executed for this assignment):
-iqtree -s alignment.fasta -m TEST -bb 1000 -nt AUTO
