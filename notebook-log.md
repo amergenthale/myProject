@@ -58,7 +58,9 @@ Alignment Score 40090
 firstres = 1 lastres = 718
 FASTA file created!
 
-Fasta-Alignment file created    [rplC-aligned.fasta]
+Fasta-Alignment file created    [rplC-aligned.fasta]  
+
+Three alignment methods (ClustalW, MUSCLE, and MAFFT) were applied to the rplC gene sequences. Overall, all three methods produced highly similar alignments across conserved regions, indicating strong sequence similarity among the selected taxa. However, minor differences were observed in regions containing insertions and deletions, where MAFFT and MUSCLE tended to introduce slightly different gap placements compared to ClustalW. These differences highlight the sensitivity of alignment algorithms to gap penalties and refinement strategies. Regions with inconsistent gap placement across methods were considered unreliable and were interpreted cautiously in downstream phylogenetic analyses. Because MAFFT balances speed and accuracy and is widely recommended for nucleotide data, its alignment was selected for subsequent tree inference.
 
 
 
