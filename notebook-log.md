@@ -38,6 +38,7 @@ data/
 ├── rplC.fasta
 ├── rpsJ.fasta
 ├── rplD.fasta
+```
 
 Data Preparation
 mv rplC.fasta.txt rplC.fasta
