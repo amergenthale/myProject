@@ -184,5 +184,41 @@ Tree Comparison and Interpretation
 
 Neighbor-Joining, Maximum Parsimony, and Maximum Likelihood trees showed broadly similar topologies, indicating consistent evolutionary relationships. Minor differences were observed in branching order, especially in regions with lower support. Maximum Likelihood was considered the most reliable due to its statistical framework, while parsimony may be affected by long-branch attraction.
 
+Bayesian Phylogenetic Inference with MrBayes
+Description of MrBayes
+
+Bayesian phylogenetic inference was performed using MrBayes. MrBayes uses a Markov Chain Monte Carlo (MCMC) algorithm to estimate the posterior probability distribution of trees under a specified model of sequence evolution. Instead of producing a single tree, it samples many trees according to their probability given the data and model.
+
+Assumptions
+
+The method assumes that:
+
+The chosen substitution model (GTR + Γ) adequately represents sequence evolution
+Sites evolve independently
+The alignment is correct
+The Markov chain reaches convergence and samples the true posterior distribution
+Limitations
+
+Limitations include:
+
+Results depend heavily on the chosen model
+Poor alignments can lead to incorrect trees
+MCMC may not converge if run too briefly
+Computationally intensive for large datasets
+
+MrBayes Commands
+mb
+execute rplC-mafft-clean.nex
+lset nst=6 rates=gamma
+mcmc ngen=1000000 samplefreq=100 printfreq=100 diagnfreq=1000 nchains=4
+sump burnin=2500
+sumt burnin=2500
+
+Notes
+Sequence alignment was performed using MAFFT
+FASTA files were converted to NEXUS format using the R package ape
+Taxon names were cleaned to remove spaces and special characters for compatibility with MrBayes
+Errors encountered during file formatting were corrected (e.g., missing ;, missing end;, invalid taxon names)
+
 
 
