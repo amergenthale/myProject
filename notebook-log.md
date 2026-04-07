@@ -43,15 +43,15 @@ data/
 Data Preparation
 
 The FASTA files were renamed to ensure proper formatting:
+```text
 mv rplC.fasta.txt rplC.fasta
 mv rpsJ.fasta.txt rpsJ.fasta
 mv rplD.fasta.txt rplD.fasta
+```
 
 Multiple Sequence Alignment
 
 Three alignment methods were tested: ClustalW, MUSCLE, and MAFFT.
-
-clustalw2 -ALIGN -INFILE=rplC.fasta -OUTFILE=rplC-aligned.fasta -OUTPUT=FASTA
 
 Clustal W
 
