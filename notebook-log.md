@@ -22,7 +22,7 @@ rplD
 
 These genes were chosen because they are commonly used in bacterial phylogenetics and are present across all selected genomes.
 
-Data Organization
+**Data Organization**
 
 Each gene was extracted and stored as a separate FASTA file:
 
@@ -31,7 +31,7 @@ data/
 ├── rpsJ.fasta
 ├── rplD.fasta
 
-Data Preparation
+**Data Preparation**
 
 One issue encountered during preprocessing was incorrect file extensions (.fasta.txt). These were corrected using the following commands:
 
@@ -41,11 +41,11 @@ mv rplD.fasta.txt rplD.fasta
 
 This step was necessary because alignment software requires proper FASTA formatting and file naming.
 
-Multiple Sequence Alignment
+**Multiple Sequence Alignment**
 
 Three alignment methods were used to compare performance and ensure robustness.
 
-ClustalW
+**ClustalW**
 Command:
 clustalw2 -ALIGN -INFILE=rplC.fasta -OUTFILE=rplC-aligned.fasta -OUTPUT=FASTA
 Description:
@@ -59,7 +59,7 @@ Limitations:
 Errors early in alignment cannot be corrected
 Sensitive to guide tree accuracy
 
-MUSCLE
+**MUSCLE**
 Command:
 muscle -align rplC.fasta -output rplC-muscle.fasta
 Description:
@@ -72,7 +72,7 @@ Limitations:
 May produce slightly different alignments depending on parameters
 Computational cost increases with refinement
 
-MAFFT
+**MAFFT**
 Command:
 mafft --auto rplC.fasta > rplC-mafft.fasta
 Description:
@@ -89,7 +89,7 @@ Sensitive to highly divergent regions
 
 Three alignment methods (ClustalW, MUSCLE, and MAFFT) were applied to the rplC gene sequences. Overall, all three methods produced highly similar alignments across conserved regions, indicating strong sequence similarity among the selected taxa. However, minor differences were observed in regions containing insertions and deletions, where MAFFT and MUSCLE tended to introduce slightly different gap placements compared to ClustalW. These differences highlight the sensitivity of alignment algorithms to gap penalties and refinement strategies. Regions with inconsistent gap placement across methods were considered unreliable and were interpreted cautiously in downstream phylogenetic analyses. Because MAFFT balances speed and accuracy and is widely recommended for nucleotide data, its alignment was selected for subsequent tree inference.
 
-Phylogenetic Inference
+**Phylogenetic Inference**
 
 All downstream analyses were performed using the MAFFT alignment.
 
@@ -123,7 +123,8 @@ mp_tree <- optim.parsimony(start_tree, dna_phydat)
 plot(mp_tree, main="Maximum Parsimony Tree")
 Description:
 
-Maximum Parsimony identifies the tree that minimizes the total number of evolutionary changes.
+**Maximum Parsimony**
+identifies the tree that minimizes the total number of evolutionary changes.
 
 Assumptions:
 Evolution follows the simplest path
@@ -136,7 +137,8 @@ cd ~/Desktop/iqtree-3.1.0-macOS/bin
 ./iqtree3 -s ~/Desktop/myProject/data/rplC-mafft.fasta -bb 1000
 Description:
 
-Maximum Likelihood estimates the tree topology that maximizes the probability of observing the sequence data under a model of evolution.
+**Maximum Likelihood** 
+estimates the tree topology that maximizes the probability of observing the sequence data under a model of evolution.
 
 Assumptions:
 Sites evolve independently
@@ -161,7 +163,7 @@ nodelabels(rtre$node.label)
 
 Rooting is necessary because maximum likelihood methods produce unrooted trees.
 
-Tree Comparison
+**Tree Comparison**
 
 The Neighbor-Joining, Maximum Parsimony, and Maximum Likelihood trees showed broadly similar topologies, indicating consistent evolutionary relationships among the sampled taxa. However, minor differences in branching order were observed, particularly in regions with lower support values. The Maximum Likelihood tree was considered the most reliable due to its use of an explicit evolutionary model and statistical framework, while the parsimony method may be affected by long-branch attraction. These differences highlight the importance of comparing multiple phylogenetic methods.
 
