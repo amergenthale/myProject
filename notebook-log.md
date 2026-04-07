@@ -22,7 +22,7 @@ rplD
 
 These genes were chosen because they are commonly used in bacterial phylogenetics and are present across all selected genomes.
 
-📂 Data Organization
+Data Organization
 
 Each gene was extracted and stored as a separate FASTA file:
 
@@ -30,7 +30,8 @@ data/
 ├── rplC.fasta
 ├── rpsJ.fasta
 ├── rplD.fasta
-🔧 Data Preparation
+
+Data Preparation
 
 One issue encountered during preprocessing was incorrect file extensions (.fasta.txt). These were corrected using the following commands:
 
@@ -44,7 +45,7 @@ Multiple Sequence Alignment
 
 Three alignment methods were used to compare performance and ensure robustness.
 
-1️⃣ ClustalW
+ClustalW
 Command:
 clustalw2 -ALIGN -INFILE=rplC.fasta -OUTFILE=rplC-aligned.fasta -OUTPUT=FASTA
 Description:
@@ -57,7 +58,8 @@ Sequence similarity reflects evolutionary relationships
 Limitations:
 Errors early in alignment cannot be corrected
 Sensitive to guide tree accuracy
-2️⃣ MUSCLE
+
+MUSCLE
 Command:
 muscle -align rplC.fasta -output rplC-muscle.fasta
 Description:
@@ -69,7 +71,8 @@ Similar sequences should align consistently across iterations
 Limitations:
 May produce slightly different alignments depending on parameters
 Computational cost increases with refinement
-3️⃣ MAFFT
+
+MAFFT
 Command:
 mafft --auto rplC.fasta > rplC-mafft.fasta
 Description:
