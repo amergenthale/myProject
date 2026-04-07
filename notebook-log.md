@@ -33,24 +33,22 @@ These genes were chosen because they are commonly used in bacterial phylogenetic
 
 ## Data Organization
 
-
+```text
 data/
 ├── rplC.fasta
 ├── rpsJ.fasta
 ├── rplD.fasta
 
-
-## Data Preparation
-
-```{bash}
+Data Preparation
 mv rplC.fasta.txt rplC.fasta
 mv rpsJ.fasta.txt rpsJ.fasta
 mv rplD.fasta.txt rplD.fasta
-
 This step ensures proper FASTA formatting and file naming.
 
 Multiple Sequence Alignment
+
 ClustalW
+
 clustalw2 -ALIGN -INFILE=rplC.fasta -OUTFILE=rplC-aligned.fasta -OUTPUT=FASTA
 
 Description: ClustalW is a progressive alignment method that builds a guide tree and aligns sequences stepwise.
@@ -64,7 +62,9 @@ Limitations:
 
 Errors early in alignment cannot be corrected
 Sensitive to guide tree accuracy
+
 MUSCLE
+
 muscle -align rplC.fasta -output rplC-muscle.fasta
 
 Description: MUSCLE uses iterative refinement and progressive alignment to improve accuracy.
@@ -77,7 +77,9 @@ Limitations:
 
 May produce slightly different alignments depending on parameters
 Computational cost increases with refinement
+
 MAFFT
+
 mafft --auto rplC.fasta > rplC-mafft.fasta
 
 Description: MAFFT uses fast Fourier transform techniques and iterative refinement.
@@ -91,6 +93,7 @@ Limitations:
 
 Alignment varies by algorithm mode
 Sensitive to highly divergent regions
+
 Alignment Comparison
 
 Three alignment methods (ClustalW, MUSCLE, and MAFFT) were applied to the rplC gene sequences. All methods produced highly similar alignments across conserved regions, indicating strong sequence similarity among taxa. Minor differences occurred in regions with insertions and deletions, where MAFFT and MUSCLE showed different gap placements compared to ClustalW. These differences reflect sensitivity to gap penalties. Regions with inconsistent alignment were treated cautiously. MAFFT was selected for downstream analysis due to its balance of speed and accuracy.
@@ -100,14 +103,15 @@ Phylogenetic Inference
 All analyses used the MAFFT alignment.
 
 Neighbor-Joining
+
 library(ape)
 
-dna <- read.dna("data/rplC-mafft.fasta", format="fasta")
-dist_matrix <- dist.dna(dna, model="JC69")
+dna <- read.dna("data/rplC-mafft.fasta", format = "fasta")
+dist_matrix <- dist.dna(dna, model = "JC69")
 
 nj_tree <- nj(dist_matrix)
 
-plot(nj_tree, main="Neighbor-Joining Tree")
+plot(nj_tree, main = "Neighbor-Joining Tree")
 
 Description: Constructs a tree from pairwise genetic distances.
 
@@ -119,16 +123,18 @@ Limitations:
 
 Loss of information from sequence simplification
 Sensitive to distance errors
+
 Maximum Parsimony
+
 library(phangorn)
 
-dna_phydat <- phyDat(dna, type="DNA")
+dna_phydat <- phyDat(dna, type = "DNA")
 
 start_tree <- nj(dist_matrix)
 
 mp_tree <- optim.parsimony(start_tree, dna_phydat)
 
-plot(mp_tree, main="Maximum Parsimony Tree")
+plot(mp_tree, main = "Maximum Parsimony Tree")
 
 Description: Identifies the tree minimizing total evolutionary changes.
 
@@ -140,7 +146,9 @@ Limitations:
 
 Sensitive to long-branch attraction
 No explicit evolutionary model
+
 Maximum Likelihood (IQ-TREE)
+
 cd ~/Desktop/iqtree-3.1.0-macOS/bin
 ./iqtree3 -s ~/Desktop/myProject/data/rplC-mafft.fasta -bb 1000
 
@@ -157,14 +165,17 @@ Limitations:
 Computationally intensive
 Depends on model selection
 Can get trapped in local optima
+
 Tree Visualization and Rooting
+
 library(ape)
 
 tre <- read.tree("data/rplC-mafft.fasta.treefile")
 
 plot(tre)
 nodelabels()
-rtre <- root(tre, outgroup="JALJYH000000000", resolve.root=TRUE)
+
+rtre <- root(tre, outgroup = "JALJYH000000000", resolve.root = TRUE)
 
 plot(rtre)
 nodelabels(rtre$node.label)
@@ -174,7 +185,5 @@ Rooting is necessary because maximum likelihood produces unrooted trees.
 Tree Comparison and Interpretation
 
 Neighbor-Joining, Maximum Parsimony, and Maximum Likelihood trees showed broadly similar topologies, indicating consistent evolutionary relationships. Minor differences were observed in branching order, especially in regions with lower support. Maximum Likelihood was considered most reliable due to its statistical framework, while parsimony may be affected by long-branch attraction.
-
-
 
 
