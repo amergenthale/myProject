@@ -1,11 +1,10 @@
 ---
-title: "Phylogenetic Analysis of Conserved Genes in Kerstersia gyiorum"
-output: html_notebook
+Title: "Phylogenetic Analysis of Conserved Genes in Kerstersia gyiorum"
 ---
 
 # Objective
 
-This notebook analyzes phylogenetic relationships among five *Kerstersia gyiorum* genome assemblies using three conserved genes (*rpsJ*, *rplC*, and *rplD*). The workflow includes sequence preparation, multiple sequence alignment, phylogenetic inference, and Bayesian analysis using MrBayes.
+his notebook aims to investigate the evolutionary relationships among five *Kerstersia gyiorum* genome assemblies using three conserved genes (*rpsJ*, *rplC*, and *rplD*). By analyzing multiple genes, this study provides a more robust assessment of phylogenetic patterns within the species. 
 
 # Dataset Description
 
@@ -13,7 +12,9 @@ This project uses a publicly available dataset from a study on bacteria associat
 
 **Source:** https://peerj.com/articles/17206/
 
-The organism analyzed is *Kerstersia gyiorum*, a bacterial species isolated from sloths. This dataset contains multiple genome assemblies of the same species.
+The organism analyzed is *Kerstersia gyiorum*, a Gram-negative bacterium found in both humans and animals and associated with opportunistic infections. The genomes used in this analysis were isolated from brown-throated sloths (*Bradypus variegatus*), an arboreal mammal native to Central and South America. Sloths have a unique lifestyle and slow metabolism, which contribute to a distinct microbiome. Studying bacteria from sloths provides insight into host-associated microbial diversity and potential evolutionary adaptation to different environments. 
+
+Although the original study analyzed multiple genomes, a subset of five genome assemblies was selected for this analysis:
 
 A subset of five genome assemblies was selected:
 
@@ -25,11 +26,11 @@ A subset of five genome assemblies was selected:
 
 Three conserved genes were selected for phylogenetic analysis:
 
-- rpsJ  
-- rplC  
-- rplD  
+- rpsJ (ribosomal protein S10)  
+- rplC (ribosomal protein L3)   
+- rplD  (ribosomal protein L4)   
 
-These genes are commonly used in bacterial phylogenetics and are present across all selected genomes.
+These genes encode components of the bacterial ribosome and are essential for protein synthesis. Because they are highly conserved across bacteria but still accumulate mutations over time, they are well-suited for reconstructing evolutionary relationships. Their presence in all genomes ensures comparability across taxa, while their variation provides phylogenetic signal.
 
 # Data Organization
 
@@ -40,7 +41,7 @@ data/
 ├── rplD.fasta
 ```
 
-Data Preparation
+# Data Preparation
 
 The FASTA files were renamed to ensure proper formatting:
 ```text
@@ -49,172 +50,163 @@ mv rpsJ.fasta.txt rpsJ.fasta
 mv rplD.fasta.txt rplD.fasta
 ```
 
-Multiple Sequence Alignment
+# Multiple Sequence Alignment
 
 Three alignment methods were tested: ClustalW, MUSCLE, and MAFFT.
 
-Clustal W
+# Clustal W
 
+```text
 clustalw2 -ALIGN -INFILE=rplC.fasta -OUTFILE=rplC-aligned.fasta -OUTPUT=FASTA
+```
 
-Description:
+**Description:**
 ClustalW is a progressive alignment method that builds a guide tree and aligns sequences stepwise.
-Assumptions:
 
+**Assumptions:**
 Early alignment decisions are correct
 Sequence similarity reflects evolutionary relationships
 
-Limitations:
-
+**Limitations:**
 Errors early in alignment cannot be corrected
 Sensitive to guide tree accuracy
 
-MUSCLE
+# MUSCLE
+```text
 muscle -align rplC.fasta -output rplC-muscle.fasta
+```
 
-escription:
+**Description:**
 MUSCLE uses iterative refinement and progressive alignment.
 
-Assumptions:
-
+**Assumptions:**
 Similar sequences align consistently across iterations
 
-Limitations:
-
+**Limitations:**
 May produce slightly different alignments depending on parameters
 Computational cost increases with refinement
 
-MAFFT
-
+# MAFFT
+```text
 mafft --auto rplC.fasta > rplC-mafft.fasta
+```
 
-Description:
+**Description:**
 MAFFT uses fast Fourier transform and iterative refinement.
 
-Assumptions:
-
+**Assumptions:**
 Sequence similarity reflects evolutionary homology
 Gap penalties model insertions/deletions
 
-Limitations:
-
+**Limitations:**
 Alignment varies by algorithm mode
 Sensitive to highly divergent regions
-Alignment Comparison
 
+# Alignment Comparison
 Three alignment methods (ClustalW, MUSCLE, and MAFFT) were applied to the rplC gene sequences. All methods produced highly similar alignments across conserved regions, indicating strong sequence similarity among taxa. Minor differences occurred in regions with insertions and deletions, where MAFFT and MUSCLE showed different gap placements compared to ClustalW. These differences reflect sensitivity to gap penalties. Regions with inconsistent alignment were treated cautiously. MAFFT was selected for downstream analysis due to its balance of speed and accuracy.
 
-Phylogenetic Inference
+# Phylogenetic Inference
 
 All analyses used the MAFFT alignment.
 
-Neighbor-Joining
+# Neighbor-Joining
+```text
 library(ape)
-
 dna <- read.dna("data/rplC-mafft.fasta", format = "fasta")
 dist_matrix <- dist.dna(dna, model = "JC69")
-
 nj_tree <- nj(dist_matrix)
-
 plot(nj_tree, main = "Neighbor-Joining Tree")
-Description:
+```
+**Description:**
 Constructs a tree from pairwise genetic distances.
 
-Assumptions:
-
+**Assumptions:**
 Distances reflect evolutionary divergence
 
-Limitations:
-
+**Limitations**:
 Loss of information from sequence simplification
 Sensitive to distance errors
-Maximum Parsimony
+
+# Maximum Parsimony
+```text
 library(phangorn)
-
 dna_phydat <- phyDat(dna, type = "DNA")
-
 start_tree <- nj(dist_matrix)
-
 mp_tree <- optim.parsimony(start_tree, dna_phydat)
-
 plot(mp_tree, main = "Maximum Parsimony Tree")
-Description:
+```
+
+**Description:**
 Identifies the tree minimizing total evolutionary changes.
 
-Assumptions:
-
+**Assumptions:**
 Evolution follows the simplest path
 
-Limitations:
-
+**Limitations:**
 Sensitive to long-branch attraction
 No explicit evolutionary model
-Maximum Likelihood (IQ-TREE)
+
+# Maximum Likelihood (IQ-TREE)
+```text
 cd ~/Desktop/iqtree-3.1.0-macOS/bin
 ./iqtree3 -s ~/Desktop/myProject/data/rplC-mafft.fasta -bb 1000
-Description:
+```
+
+**Description:**
 Estimates the most likely tree under a model of evolution.
 
-Assumptions:
-
+**Assumptions:**
 Sites evolve independently
 Model accurately reflects evolution
 Alignment is correct
 
-Limitations:
-
+**Limitations:**
 Computationally intensive
 Depends on model selection
 Can get trapped in local optima
 
-Tree Visualization and Rooting
+# Tree Visualization and Rooting
+```text
 library(ape)
-
 tre <- read.tree("data/rplC-mafft.fasta.treefile")
-
 plot(tre)
 nodelabels()
-
 rtre <- root(tre, outgroup = "JALJYH000000000", resolve.root = TRUE)
-
 plot(rtre)
 nodelabels(rtre$node.label)
+```
 
-Tree Comparison and Interpretation
-
+# Tree Comparison and Interpretation
 Neighbor-Joining, Maximum Parsimony, and Maximum Likelihood trees showed broadly similar topologies, indicating consistent evolutionary relationships. Minor differences were observed in branching order, especially in regions with lower support. Maximum Likelihood was considered the most reliable due to its statistical framework, while parsimony may be affected by long-branch attraction.
 
-Bayesian Phylogenetic Inference with MrBayes
-Description of MrBayes
+# Bayesian Phylogenetic Inference with MrBayes
 
+**Description:**
 Bayesian phylogenetic inference was performed using MrBayes. MrBayes uses a Markov Chain Monte Carlo (MCMC) algorithm to estimate the posterior probability distribution of trees under a specified model of sequence evolution. Instead of producing a single tree, it samples many trees according to their probability given the data and model.
 
-Assumptions
-
-The method assumes that:
-
+**Assumptions:**
 The chosen substitution model (GTR + Γ) adequately represents sequence evolution
 Sites evolve independently
 The alignment is correct
 The Markov chain reaches convergence and samples the true posterior distribution
-Limitations
 
-Limitations include:
-
+**Limitations:**
 Results depend heavily on the chosen model
 Poor alignments can lead to incorrect trees
 MCMC may not converge if run too briefly
 Computationally intensive for large datasets
 
 MrBayes Commands
+```text
 mb
 execute rplC-mafft-clean.nex
 lset nst=6 rates=gamma
 mcmc ngen=1000000 samplefreq=100 printfreq=100 diagnfreq=1000 nchains=4
 sump burnin=2500
 sumt burnin=2500
+```
 
-Notes
+**Notes:**
 Sequence alignment was performed using MAFFT
 FASTA files were converted to NEXUS format using the R package ape
 Taxon names were cleaned to remove spaces and special characters for compatibility with MrBayes
