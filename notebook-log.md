@@ -240,6 +240,32 @@ ASTRAL is a summary coalescent method that estimates a species tree from a set o
 mafft --auto data/rpsJ.fasta > data/rpsJ-mafft.fasta
 mafft --auto data/rplC.fasta > data/rplC-mafft.fasta
 mafft --auto data/rplD.fasta > data/rplD-mafft.fasta
+```
+
+**Infer ML gene trees**
+```bash
+iqtree2 -s data/rpsJ-mafft.fasta -m MFP -bb 1000 -nt AUTO
+iqtree2 -s data/rplC-mafft.fasta -m MFP -bb 1000 -nt AUTO
+iqtree2 -s data/rplD-mafft.fasta -m MFP -bb 1000 -nt AUTO
+```
+
+**Combine gene trees**
+```bash
+cat data/rpsJ-mafft.fasta.treefile \
+    data/rplC-mafft.fasta.treefile \
+    data/rplD-mafft.fasta.treefile > data/all_gene_trees.tre
+```
+
+**Run ASTRAL**
+```bash
+java -jar astral.jar -i data/all_gene_trees.tre -o data/astral_species_tree.tre
+```
+
+**Notes** 
+This coalescent workflow uses the three genes in the project dataset rather than a toy example. The assignment only requires the commands and method description, so obtaining the final species tree output is not necessary for submission.
+
+
+
 
 
 
