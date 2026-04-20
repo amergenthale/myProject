@@ -212,5 +212,37 @@ FASTA files were converted to NEXUS format using the R package ape
 Taxon names were cleaned to remove spaces and special characters for compatibility with MrBayes
 Errors encountered during file formatting were corrected (e.g., missing ;, missing end;, invalid taxon names)
 
+# Coalescent Species Tree Analysis
+**Goal**
+Because this dataset contains three genes (`rpsJ`, `rplC`, and `rplD`), a coalescent-based species tree method can be applied to the project data. Unlike single-gene tree inference, coalescent methods use multiple gene trees to estimate a species tree while accounting for discordance among loci.
+
+**Chosen Method**
+I chose **ASTRAL** as the coalescent method.
+
+**Description of the Algorithm
+ASTRAL is a summary coalescent method that estimates a species tree from a set of input gene trees. Rather than analyzing raw sequence alignments directly, it uses the topologies of gene trees and identifies the species tree that is most consistent with the quartet relationships observed across loci. This makes it useful when different genes support somewhat different evolutionary histories.
+
+**Assumptions**
+- Multiple independent loci are available.
+- Gene tree discordance is mainly caused by incomplete lineage sorting.
+- Input gene trees are reasonably accurate.
+- Genes are orthologous rather than paralogous.
+- Recombination within each locus is low, and loci are treated as independent.
+
+**Limitations**
+- ASTRAL depends on the quality of the input gene trees.
+- With only a small number of genes, species tree estimation may have limited resolution.
+- It is designed mainly for discordance caused by incomplete lineage sorting and does not explicitly model processes such as horizontal gene transfer or hybridization.
+- Errors in alignment or gene tree estimation can affect the final species tree.
+
+**Align each gene**
+```bash
+mafft --auto data/rpsJ.fasta > data/rpsJ-mafft.fasta
+mafft --auto data/rplC.fasta > data/rplC-mafft.fasta
+mafft --auto data/rplD.fasta > data/rplD-mafft.fasta
+
+
+
+
 
 
