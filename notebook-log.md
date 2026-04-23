@@ -4,7 +4,7 @@ Title: "Phylogenetic Analysis of Conserved Genes in Kerstersia gyiorum"
 
 # Objective
 
-his notebook aims to investigate the evolutionary relationships among five *Kerstersia gyiorum* genome assemblies using three conserved genes (*rpsJ*, *rplC*, and *rplD*). By analyzing multiple genes, this study provides a more robust assessment of phylogenetic patterns within the species. 
+his notebook aims to investigate the evolutionary relationships among five *Kerstersia gyiorum* genome assemblies using two conserved genes (*rpsJ* and *rplC*). By analyzing multiple genes, this study provides a more robust assessment of phylogenetic patterns within the species. 
 
 # Dataset Description
 
@@ -28,7 +28,6 @@ Three conserved genes were selected for phylogenetic analysis:
 
 - rpsJ (ribosomal protein S10)  
 - rplC (ribosomal protein L3)   
-- rplD  (ribosomal protein L4)   
 
 These genes encode components of the bacterial ribosome and are essential for protein synthesis. Because they are highly conserved across bacteria but still accumulate mutations over time, they are well-suited for reconstructing evolutionary relationships. Their presence in all genomes ensures comparability across taxa, while their variation provides phylogenetic signal.
 
@@ -38,7 +37,6 @@ These genes encode components of the bacterial ribosome and are essential for pr
 data/
 ├── rplC.fasta
 ├── rpsJ.fasta
-├── rplD.fasta
 ```
 
 # Data Preparation
@@ -47,7 +45,6 @@ The FASTA files were renamed to ensure proper formatting:
 ```text
 mv rplC.fasta.txt rplC.fasta
 mv rpsJ.fasta.txt rpsJ.fasta
-mv rplD.fasta.txt rplD.fasta
 ```
 
 # Multiple Sequence Alignment
@@ -214,7 +211,7 @@ Errors encountered during file formatting were corrected (e.g., missing ;, missi
 
 # Coalescent Species Tree Analysis
 **Goal**
-Because this dataset contains three genes (`rpsJ`, `rplC`, and `rplD`), a coalescent-based species tree method can be applied to the project data. Unlike single-gene tree inference, coalescent methods use multiple gene trees to estimate a species tree while accounting for discordance among loci.
+Because this dataset contains three genes (`rpsJ` and `rplC`), a coalescent-based species tree method can be applied to the project data. Unlike single-gene tree inference, coalescent methods use multiple gene trees to estimate a species tree while accounting for discordance among loci.
 
 **Chosen Method**
 I chose **ASTRAL** as the coalescent method.
@@ -239,21 +236,18 @@ ASTRAL is a summary coalescent method that estimates a species tree from a set o
 ```bash
 mafft --auto data/rpsJ.fasta > data/rpsJ-mafft.fasta
 mafft --auto data/rplC.fasta > data/rplC-mafft.fasta
-mafft --auto data/rplD.fasta > data/rplD-mafft.fasta
 ```
 
 **Infer ML gene trees**
 ```bash
 iqtree2 -s data/rpsJ-mafft.fasta -m MFP -bb 1000 -nt AUTO
 iqtree2 -s data/rplC-mafft.fasta -m MFP -bb 1000 -nt AUTO
-iqtree2 -s data/rplD-mafft.fasta -m MFP -bb 1000 -nt AUTO
 ```
 
 **Combine gene trees**
 ```bash
 cat data/rpsJ-mafft.fasta.treefile \
     data/rplC-mafft.fasta.treefile \
-    data/rplD-mafft.fasta.treefile > data/all_gene_trees.tre
 ```
 
 **Run ASTRAL**
