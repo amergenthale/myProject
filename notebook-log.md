@@ -24,7 +24,7 @@ A subset of five genome assemblies was selected:
 - JALJYO000000000  
 - JAOQMY000000000  
 
-Three conserved genes were selected for phylogenetic analysis:
+Two conserved genes were selected for phylogenetic analysis:
 
 - rpsJ (ribosomal protein S10)  
 - rplC (ribosomal protein L3)   
