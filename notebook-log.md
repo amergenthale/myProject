@@ -61,11 +61,11 @@ clustalw2 -ALIGN -INFILE=rplC.fasta -OUTFILE=rplC-aligned.fasta -OUTPUT=FASTA
 ClustalW is a progressive alignment method that builds a guide tree and aligns sequences stepwise.
 
 **Assumptions:**
-Early alignment decisions are correct
+Early alignment decisions are correct, 
 Sequence similarity reflects evolutionary relationships
 
 **Limitations:**
-Errors early in alignment cannot be corrected
+Errors early in alignment cannot be corrected, 
 Sensitive to guide tree accuracy
 
 # MUSCLE
