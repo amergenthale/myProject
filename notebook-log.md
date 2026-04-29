@@ -80,7 +80,7 @@ MUSCLE uses iterative refinement and progressive alignment.
 Similar sequences align consistently across iterations
 
 **Limitations:**
-May produce slightly different alignments depending on parameters
+May produce slightly different alignments depending on parameters, 
 Computational cost increases with refinement
 
 # MAFFT
@@ -92,11 +92,11 @@ mafft --auto rplC.fasta > rplC-mafft.fasta
 MAFFT uses fast Fourier transform and iterative refinement.
 
 **Assumptions:**
-Sequence similarity reflects evolutionary homology
+Sequence similarity reflects evolutionary homology, 
 Gap penalties model insertions/deletions
 
 **Limitations:**
-Alignment varies by algorithm mode
+Alignment varies by algorithm mode, 
 Sensitive to highly divergent regions
 
 # Alignment Comparison
@@ -121,7 +121,7 @@ Constructs a tree from pairwise genetic distances.
 Distances reflect evolutionary divergence
 
 **Limitations**:
-Loss of information from sequence simplification
+Loss of information from sequence simplification, 
 Sensitive to distance errors
 
 # Maximum Parsimony
@@ -140,7 +140,7 @@ Identifies the tree minimizing total evolutionary changes.
 Evolution follows the simplest path
 
 **Limitations:**
-Sensitive to long-branch attraction
+Sensitive to long-branch attraction, 
 No explicit evolutionary model
 
 # Maximum Likelihood (IQ-TREE)
@@ -153,13 +153,13 @@ cd ~/Desktop/iqtree-3.1.0-macOS/bin
 Estimates the most likely tree under a model of evolution.
 
 **Assumptions:**
-Sites evolve independently
-Model accurately reflects evolution
+Sites evolve independently, 
+Model accurately reflects evolution, 
 Alignment is correct
 
 **Limitations:**
-Computationally intensive
-Depends on model selection
+Computationally intensive, 
+Depends on model selection, 
 Can get trapped in local optima
 
 # Tree Visualization and Rooting
@@ -183,14 +183,14 @@ Bayesian phylogenetic inference was performed using MrBayes. MrBayes uses a Mark
 
 **Assumptions:**
 The chosen substitution model (GTR + Γ) adequately represents sequence evolution
-Sites evolve independently
-The alignment is correct
+Sites evolve independently, 
+The alignment is correct, 
 The Markov chain reaches convergence and samples the true posterior distribution
 
 **Limitations:**
-Results depend heavily on the chosen model
-Poor alignments can lead to incorrect trees
-MCMC may not converge if run too briefly
+Results depend heavily on the chosen model, 
+Poor alignments can lead to incorrect trees, 
+MCMC may not converge if run too briefly, 
 Computationally intensive for large datasets
 
 MrBayes Commands
@@ -204,9 +204,9 @@ sumt burnin=2500
 ```
 
 **Notes:**
-Sequence alignment was performed using MAFFT
-FASTA files were converted to NEXUS format using the R package ape
-Taxon names were cleaned to remove spaces and special characters for compatibility with MrBayes
+Sequence alignment was performed using MAFFT, 
+FASTA files were converted to NEXUS format using the R package ape, 
+Taxon names were cleaned to remove spaces and special characters for compatibility with MrBayes, 
 Errors encountered during file formatting were corrected (e.g., missing ;, missing end;, invalid taxon names)
 
 # Coalescent Species Tree Analysis
