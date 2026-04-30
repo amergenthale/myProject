@@ -171,6 +171,7 @@ rtre <- root(tre, outgroup = "JALJYH000000000", resolve.root = TRUE)
 plot(rtre)
 nodelabels(rtre$node.label)
 ```
+Phylogenetic trees were visualized using the ape package in R. Trees were rooted using JALJYH000000000 as the outgroup to provide directionality to evolutionary relationships.
 
 # Tree Comparison and Interpretation
 Neighbor-Joining, Maximum Parsimony, and Maximum Likelihood trees showed broadly similar topologies, indicating consistent evolutionary relationships. Minor differences were observed in branching order, especially in regions with lower support. Maximum Likelihood was considered the most reliable due to its statistical framework, while parsimony may be affected by long-branch attraction.
