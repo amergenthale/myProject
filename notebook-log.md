@@ -255,8 +255,7 @@ cat data/rpsJ-mafft.fasta.treefile \
 java -jar astral.jar -i data/all_gene_trees.tre -o data/astral_species_tree.tre
 ```
 
-**Notes** 
-This coalescent workflow uses the three genes in the project dataset rather than a toy example. The assignment only requires the commands and method description, so obtaining the final species tree output is not necessary for submission.
+
 
 
 
