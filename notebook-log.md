@@ -160,7 +160,6 @@ Alignment is correct
 **Limitations:**
 Computationally intensive, 
 Depends on model selection, 
-Can get trapped in local optima
 
 # Tree Visualization and Rooting
 ```text
