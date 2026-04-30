@@ -159,7 +159,7 @@ Alignment is correct
 
 **Limitations:**
 Computationally intensive, 
-Depends on model selection, 
+Depends on model selection 
 
 # Tree Visualization and Rooting
 ```text
