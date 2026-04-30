@@ -211,7 +211,7 @@ Errors encountered during file formatting were corrected (e.g., missing ;, missi
 
 # Coalescent Species Tree Analysis
 **Goal**
-Because this dataset contains three genes (`rpsJ` and `rplC`), a coalescent-based species tree method can be applied to the project data. Unlike single-gene tree inference, coalescent methods use multiple gene trees to estimate a species tree while accounting for discordance among loci.
+Because this dataset contains two genes (`rpsJ` and `rplC`), a coalescent-based species tree method can be applied to the project data. Unlike single-gene tree inference, coalescent methods use multiple gene trees to estimate a species tree while accounting for discordance among loci.
 
 **Chosen Method**
 I chose **ASTRAL** as the coalescent method.
