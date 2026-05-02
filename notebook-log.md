@@ -4,7 +4,7 @@ Title: "Phylogenetic Analysis of Conserved Genes in Kerstersia gyiorum"
 
 # Objective
 
-his notebook aims to investigate the evolutionary relationships among five *Kerstersia gyiorum* genome assemblies using two conserved genes (*rpsJ* and *rplC*). By analyzing multiple genes, this study provides a more robust assessment of phylogenetic patterns within the species. 
+This notebook aims to investigate the evolutionary relationships among five *Kerstersia gyiorum* genome assemblies using two conserved genes (*rpsJ* and *rplC*). By analyzing multiple genes, this study provides a more robust assessment of phylogenetic patterns within the species. 
 
 # Dataset Description
 
