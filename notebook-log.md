@@ -12,7 +12,7 @@ This project uses a publicly available dataset from a study on bacteria associat
 
 **Source:** https://peerj.com/articles/17206/
 
-The organism analyzed is *Kerstersia gyiorum*, a Gram-negative bacterium found in both humans and animals and associated with opportunistic infections. The genomes used in this analysis were isolated from brown-throated sloths (*Bradypus variegatus*), an arboreal mammal native to Central and South America. Sloths have a unique lifestyle and slow metabolism, which contribute to a distinct microbiome. Studying bacteria from sloths provides insight into host-associated microbial diversity and potential evolutionary adaptation to different environments. 
+The organism analyzed is *Kerstersia gyiorum*, a gram-negative bacterium found in both humans and animals and associated with opportunistic infections. The genomes used in this analysis were isolated from brown-throated sloths (*Bradypus variegatus*), an arboreal mammal native to Central and South America. Sloths have a unique lifestyle and slow metabolism, which contribute to a distinct microbiome. Studying bacteria from sloths provides insight into host-associated microbial diversity and potential evolutionary adaptation to different environments. 
 
 Although the original study analyzed multiple genomes, a subset of five genome assemblies was selected for this analysis:
 
