@@ -16,8 +16,6 @@ The organism analyzed is *Kerstersia gyiorum*, a gram-negative bacterium found i
 
 Although the original study analyzed multiple genomes, a subset of five genome assemblies was selected for this analysis:
 
-A subset of five genome assemblies was selected:
-
 - JALJYH000000000  
 - JALJYL000000000  
 - JALJYN000000000  
@@ -173,8 +171,6 @@ nodelabels(rtre$node.label)
 ```
 Phylogenetic trees were visualized using the ape package in R. Trees were rooted using JALJYH000000000 as the outgroup to provide directionality to evolutionary relationships.
 
-# Tree Comparison and Interpretation
-Neighbor-Joining, Maximum Parsimony, and Maximum Likelihood trees showed broadly similar topologies, indicating consistent evolutionary relationships. Minor differences were observed in branching order, especially in regions with lower support. Maximum Likelihood was considered the most reliable due to its statistical framework, while parsimony may be affected by long-branch attraction.
 
 # Bayesian Phylogenetic Inference with MrBayes
 
@@ -216,21 +212,19 @@ Because this dataset contains two genes (`rpsJ` and `rplC`), a coalescent-based 
 **Chosen Method**
 I chose **ASTRAL** as the coalescent method.
 
-**Description of the Algorithm
+**Description**
 ASTRAL is a summary coalescent method that estimates a species tree from a set of input gene trees. Rather than analyzing raw sequence alignments directly, it uses the topologies of gene trees and identifies the species tree that is most consistent with the quartet relationships observed across loci. This makes it useful when different genes support somewhat different evolutionary histories.
 
 **Assumptions**
-- Multiple independent loci are available.
-- Gene tree discordance is mainly caused by incomplete lineage sorting.
-- Input gene trees are reasonably accurate.
-- Genes are orthologous rather than paralogous.
-- Recombination within each locus is low, and loci are treated as independent.
+Multiple independent loci are available, 
+Gene tree discordance is mainly caused by incomplete lineage sorting, 
+Input gene trees are reasonably accurate, 
+Recombination within each locus is low and loci are treated as independent
 
 **Limitations**
-- ASTRAL depends on the quality of the input gene trees.
-- With only a small number of genes, species tree estimation may have limited resolution.
-- It is designed mainly for discordance caused by incomplete lineage sorting and does not explicitly model processes such as horizontal gene transfer or hybridization.
-- Errors in alignment or gene tree estimation can affect the final species tree.
+ASTRAL depends on the quality of the input gene trees,
+With only a small number of genes, species tree estimation may have limited resolution,  
+Errors in alignment or gene tree estimation can affect the final species tree
 
 **Align each gene**
 ```bash
@@ -254,6 +248,9 @@ cat data/rpsJ-mafft.fasta.treefile \
 ```bash
 java -jar astral.jar -i data/all_gene_trees.tre -o data/astral_species_tree.tre
 ```
+
+# Tree Comparison and Interpretation
+Maximum Likelihood was considered the most reliable due to its statistical framework and organization, while other methods did not show  interpretable results. 
 
 
 
